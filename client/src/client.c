@@ -1,4 +1,6 @@
 #include "client.h"
+#include <readline/readline.h>
+#include <string.h>
 
 int main(void)
 {
@@ -62,7 +64,7 @@ t_log* iniciar_logger(void)
 
 	if (nuevo_logger == NULL){
      printf("No se pudo crear el LOG!!!\n");
-	 exit(1);
+	 abort();
 }
 
 	return nuevo_logger;
@@ -82,14 +84,16 @@ t_config* iniciar_config(void)
 void leer_consola(t_log* logger)
 {
 	char* leido;
+	int comparation;
 
-	// La primera te la dejo de yapa
 	leido = readline("> ");
+	comparation = strcmp(leido, "");
 
-	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
-
-
-	// ¡No te olvides de liberar las lineas antes de regresar!
+	while(comparation!=0){
+		log_info(logger, leido);
+		leido = readline("> ");
+		comparation = strcmp(leido, "");
+	}
 
 }
 
