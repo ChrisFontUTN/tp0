@@ -29,13 +29,6 @@ int main(void)
 
 	log_info(logger, valor);
 
-
-	// Usando el config creado previamente, leemos los valores del config y los 
-	// dejamos en las variables 'ip', 'puerto' y 'valor'
-
-	// Loggeamos el valor de config
-
-
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
 	leer_consola(logger);
@@ -48,6 +41,8 @@ int main(void)
 	conexion = crear_conexion(ip, puerto);
 
 	// Enviamos al servidor el valor de CLAVE como mensaje
+
+	enviar_mensaje(valor, conexion);
 
 	// Armamos y enviamos el paquete
 	paquete(conexion);
@@ -91,9 +86,12 @@ void leer_consola(t_log* logger)
 
 	while(comparation!=0){
 		log_info(logger, leido);
+		free(leido);
 		leido = readline("> ");
 		comparation = strcmp(leido, "");
 	}
+
+	free(leido);
 
 }
 
